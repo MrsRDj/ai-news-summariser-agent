@@ -1,0 +1,139 @@
+# Clean Code Standards
+
+## Core Principles
+1. **Simplicity** - Write the simplest code that works
+2. **Readability** - Code is read more than written
+3. **Single Responsibility** - Each module/class/function does one thing well
+4. **DRY** - Avoid code duplication
+5. **Explicit over Implicit** - Be clear about intent
+
+## Python Standards
+
+### Style
+- Follow PEP 8
+- 4 spaces for indentation
+- Max line length: 100 characters
+- Descriptive variable names
+
+### Naming Conventions
+```python
+class NewsResearchOrchestrator:  # PascalCase
+def fetch_news():                # snake_case
+MAX_ARTICLES = 10                # UPPER_SNAKE_CASE
+def _is_article_recent():        # _private
+```
+
+### Type Hints
+```python
+from typing import List, Dict, Optional
+
+def process_articles(articles: List[Dict[str, Any]], limit: Optional[int] = None) -> List[str]:
+    pass
+```
+
+### Documentation
+- Docstrings for all public methods
+- Explain WHY, not WHAT
+- Keep comments minimal and meaningful
+
+## Project Structure Rules
+
+### What NOT to Create
+- ❌ Multiple documentation files with redundant information
+- ❌ "Quick reference" files that duplicate main docs
+- ❌ "Summary" or "Overview" files that repeat README
+- ❌ "Answers to questions" files
+- ❌ Separate architecture diagrams unless truly complex
+
+### What TO Create
+- ✅ Single comprehensive README
+- ✅ Setup guide (if installation is non-trivial)
+- ✅ This .cursorrules file for coding standards
+
+## Code Organization
+
+### Agent Structure
+```python
+class NewAgent(BaseAgent):
+    """Clear description of what agent does."""
+    
+    def __init__(self):
+        super().__init__(name="Name", role="Role", instructions="...")
+    
+    def public_method(self, param: str) -> str:
+        """Public interface - well documented."""
+        return self._private_helper(param)
+    
+    def _private_helper(self, param: str) -> str:
+        """Private helper - implementation detail."""
+        return param.upper()
+```
+
+### Configuration
+- All configuration in single `config.py`
+- Environment variables for secrets
+- Group related settings
+- Comment each setting's purpose
+
+## Error Handling
+
+```python
+# Good - Specific exceptions
+try:
+    result = fetch_data()
+except ConnectionError as e:
+    logger.error(f"Connection failed: {e}")
+    return None
+
+# Bad - Bare except
+try:
+    result = fetch_data()
+except:
+    pass
+```
+
+## Import Organization
+```python
+# Standard library
+import os
+from datetime import datetime
+
+# Third-party
+import feedparser
+from openai import OpenAI
+
+# Local
+from agents import BaseAgent
+import config
+```
+
+## Security
+1. Never commit secrets
+2. Validate inputs
+3. Use timeouts on external calls
+4. Handle errors gracefully
+5. Keep dependencies updated
+
+## Anti-Patterns to Avoid
+- ❌ God objects
+- ❌ Magic numbers (use named constants)
+- ❌ Deep nesting (max 3-4 levels)
+- ❌ Long functions (keep under 50 lines)
+- ❌ Commented-out code (delete it)
+- ❌ Documentation bloat
+
+## Git Practices
+- Clear commit messages: "Add date filtering to news fetcher"
+- Never commit: `.env`, `__pycache__/`, output files, temp files
+
+## Code Review Checklist
+- [ ] Follows PEP 8
+- [ ] Clear, descriptive names
+- [ ] Docstrings for public APIs
+- [ ] Appropriate error handling
+- [ ] No hardcoded secrets
+- [ ] Passes linter
+- [ ] Documentation updated if needed
+
+Remember: Code is written once but read many times. Optimize for readability.
+

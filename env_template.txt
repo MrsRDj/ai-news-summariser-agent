@@ -1,0 +1,10 @@
+# Copy this file to .env and add your actual API keys
+
+# Required: OpenAI API Key
+# Get your key from: https://platform.openai.com/api-keys
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Optional: News API Key (for additional news sources)
+# Get your key from: https://newsapi.org/
+NEWS_API_KEY=your_news_api_key_here_optional
+
